@@ -638,7 +638,208 @@ if (isset($_GET['tanggal'])) {
                         <div class="card-header border-0">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="mb-0">VF Regional</h3>
+                                    <h3 class="mb-0">VF AREA</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>Regional</th>
+                                    <th>Broadband</th>
+                                    <th>Digital Services</th>
+                                    <th>SMS P2P</th>
+                                    <th>Voice P2P</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                    </tr>
+                                    <!-- revenue mtd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Rp.
+                                        <?php echo round($hasil_rupiahsms, 1);?> B</td>
+                                        <td>Rp.
+                                        <?php echo round($hasil_rupiahvoice, 1); ?> B</td>
+                                    </tr>
+                                    <!-- mom -->
+                                    <tr>
+                                        <td></td>   
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($mom_sms, 1); ?> % </td>
+                                        <td> <?php echo round($mom_voice, 1); ?> % </td>
+                                    </tr>
+                                    <!-- yoy -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($yoy_sms, 1); ?> % </td>
+                                        <td> <?php echo round($yoy_voice, 1); ?> % </td>
+                                    </tr>
+                                    <!-- ytd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($ytd_sms, 1); ?> % </td>
+                                        <td> <?php echo round($ytd_voice, 1); ?> % </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">VF REGIONAL</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>Regional</th>
+                                    <th>Broadband</th>
+                                    <th>Digital Services</th>
+                                    <th>SMS P2P</th>
+                                    <th>Voice P2P</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                    </tr>
+                                    <!-- revenue mtd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Rp.
+                                        <?php echo round($hasil_rupiahsms, 1);?> B</td>
+                                        <td>Rp.
+                                        <?php echo round($hasil_rupiahvoice, 1); ?> B</td>
+                                    </tr>
+                                    <!-- mom -->
+                                    <tr>
+                                        <td></td>   
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($mom_sms, 1); ?> % </td>
+                                        <td> <?php echo round($mom_voice, 1); ?> % </td>
+                                    </tr>
+                                    <!-- yoy -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($yoy_sms, 1); ?> % </td>
+                                        <td> <?php echo round($yoy_voice, 1); ?> % </td>
+                                    </tr>
+                                    <!-- ytd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($ytd_sms, 1); ?> % </td>
+                                        <td> <?php echo round($ytd_voice, 1); ?> % </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">VF BRANCH</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>Regional</th>
+                                    <th>Broadband</th>
+                                    <th>Digital Services</th>
+                                    <th>SMS P2P</th>
+                                    <th>Voice P2P</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                        <td>Revenue MTD</td>
+                                    </tr>
+                                    <!-- revenue mtd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Rp.
+                                        <?php echo round($hasil_rupiahsms, 1);?> B</td>
+                                        <td>Rp.
+                                        <?php echo round($hasil_rupiahvoice, 1); ?> B</td>
+                                    </tr>
+                                    <!-- mom -->
+                                    <tr>
+                                        <td></td>   
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($mom_sms, 1); ?> % </td>
+                                        <td> <?php echo round($mom_voice, 1); ?> % </td>
+                                    </tr>
+                                    <!-- yoy -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($yoy_sms, 1); ?> % </td>
+                                        <td> <?php echo round($yoy_voice, 1); ?> % </td>
+                                    </tr>
+                                    <!-- ytd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> <?php echo round($ytd_sms, 1); ?> % </td>
+                                        <td> <?php echo round($ytd_voice, 1); ?> % </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">VF CLUSTER</h3>
                                 </div>
                             </div>
                         </div>

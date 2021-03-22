@@ -642,7 +642,71 @@ if (isset($_GET['tanggal'])) {
                                 </div>
                             </div>
                         </div>
-                        
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>Regional</th>
+                                    <th>Broadband</th>
+                                    <th>Digital Services</th>
+                                    <th>SMS P2P</th>
+                                    <th>Voice P2P</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- revenue mtd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- mom -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                           
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>
+                                    <!-- yoy -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                           
+                                        </td>
+                                        <td>
+                                          
+                                        </td>
+                                    </tr>
+                                    <!-- ytd -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

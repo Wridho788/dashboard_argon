@@ -556,6 +556,8 @@ if (isset($_GET['tanggal'])) {
 </head>
 
 <body>
+    <!-- side nav -->
+
     <!-- Main content -->
     <div class="main-content" id="panel">
         <!-- Header -->
@@ -753,7 +755,7 @@ if (isset($_GET['tanggal'])) {
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
                                 <thead class="text-blue">
-                                    <th>Regional</th>
+                                    <th>AREA</th>
                                     <th>Broadband</th>
                                     <th>Digital Services</th>
                                     <th>SMS P2P</th>

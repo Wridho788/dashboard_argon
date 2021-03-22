@@ -572,11 +572,34 @@ if (isset($_GET['tanggal'])) {
       href="assets/css/argon.css?v=1.2.0"
       type="text/css"
     />
+		<link rel="stylesheet" href="assets/css/style.css">
   </head>
 
   <body>
     <!-- Sidenav -->
+    <div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="active">
+				<h1><a href="index.php" class="logo">M.</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#"><span class="fa fa-home"></span> Home</a>
+          </li>
+          <li>
+              <a href="#"><span class="fa fa-user"></span> About</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-sticky-note"></span> Blog</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-cogs"></span> Services</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-paper-plane"></span> Contacts</a>
+          </li>
+        </ul>
+    	</nav>
     
+ 
     <!-- Main content -->
     <div class="main-content" id="panel">
       <!-- Topnav -->
@@ -585,6 +608,7 @@ if (isset($_GET['tanggal'])) {
       <!-- Header -->
       <div class="header bg-primary pb-6" >
         <div class="container-fluid">
+        
           <div class="header-body">
             <div class="row align-items-center py-4">
               <div class="col-lg-6 col-7">
@@ -922,6 +946,8 @@ if (isset($_GET['tanggal'])) {
           </div>
         </footer>
       </div>
+    </div>
+
     </div>
     <!-- Argon Scripts -->
     <!-- Core -->

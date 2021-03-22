@@ -633,16 +633,239 @@ if (isset($_GET['tanggal'])) {
         <!-- Page content -->
         <div class="container-fluid mt--6">
             <div class="row">
+
+
+
+                <!-- AREA -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="mb-0">Table 5S</h3>
+                                    <h3 class="mb-0">Sellout AREA</h3>
                                 </div>
                             </div>
                         </div>
-                       
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>AREA</th>
+                                    <th>M1 SO REV</th>
+                                    <th>MTD SO REV</th>
+                                    <th>MOM SO REV</th>
+                                    <th>M1 SO</th>
+                                    <th>MTD SO</th>
+                                    <th>MOM SO</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- sellout REGION -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">Sellout REGION</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>REGION</th>
+                                    <th>M1 SO REV</th>
+                                    <th>MTD SO REV</th>
+                                    <th>MOM SO REV</th>
+                                    <th>M1 SO</th>
+                                    <th>MTD SO</th>
+                                    <th>MOM SO</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- sellout  CLUSTER -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">Sellout CLUSTER</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>CLUSTER</th>
+                                    <th>M1 SO REV</th>
+                                    <th>MTD SO REV</th>
+                                    <th>MOM SO REV</th>
+                                    <th>M1 SO</th>
+                                    <th>MTD SO</th>
+                                    <th>MOM SO</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- sellout KABUPATEN -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">Sellout KABUPATEN</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>KABUPATEN</th>
+                                    <th>M1 SO REV</th>
+                                    <th>MTD SO REV</th>
+                                    <th>MOM SO REV</th>
+                                    <th>M1 SO</th>
+                                    <th>MTD SO</th>
+                                    <th>MOM SO</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SELLTHRU AREA -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">SELLTHRU AREA</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>AREA</th>
+                                    <th>ST MTD</th>
+                                    <th>MOM ST</th>
+                                    <th>MTD ST SA</th>
+                                    <th>MTD RS ST SA</th>
+                                    <th>MOM RS ST SA</th>
+                                    <th>MTD ST NON SA</th>
+                                    <th>MOM ST NON SA</th>
+                                    <th>MTD RS ST NON SA</th>
+                                    <th>MOM RS ST NON SA</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SELLTHRU REGION -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">SELLTRHU REGION</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>REGION</th>
+                                    <th>ST MTD</th>
+                                    <th>MOM ST</th>
+                                    <th>MTD ST SA</th>
+                                    <th>MTD RS ST SA</th>
+                                    <th>MOM RS ST SA</th>
+                                    <th>MTD ST NON SA</th>
+                                    <th>MOM ST NON SA</th>
+                                    <th>MTD RS ST NON SA</th>
+                                    <th>MOM RS ST NON SA</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SELLTRHU CLUSTER -->
+                 <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">SELLTHRU CLUSTER</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>CLUSTER</th>
+                                    <th>ST MTD</th>
+                                    <th>MOM ST</th>
+                                    <th>MTD ST SA</th>
+                                    <th>MTD RS ST SA</th>
+                                    <th>MOM RS ST SA</th>
+                                    <th>MTD ST NON SA</th>
+                                    <th>MOM ST NON SA</th>
+                                    <th>MTD RS ST NON SA</th>
+                                    <th>MOM RS ST NON SA</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SELLTRHU KABUPATEN -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">SELLTHRU KABUPATEN</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead class="text-blue">
+                                    <th>KABUPATEN</th>
+                                    <th>ST MTD</th>
+                                    <th>MOM ST</th>
+                                    <th>MTD ST SA</th>
+                                    <th>MTD RS ST SA</th>
+                                    <th>MOM RS ST SA</th>
+                                    <th>MTD ST NON SA</th>
+                                    <th>MOM ST NON SA</th>
+                                    <th>MTD RS ST NON SA</th>
+                                    <th>MOM RS ST NON SA</th>
+                                </thead>
+                               
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
