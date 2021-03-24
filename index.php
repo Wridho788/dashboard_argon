@@ -572,12 +572,12 @@ if (isset($_GET['tanggal'])) {
       href="assets/css/argon.css?v=1.2.0"
       type="text/css"
     />
-		<link rel="stylesheet" href="assets/css/style.css">
+		
   </head>
 
   <body>
     <!-- Sidenav -->
-    <div class="wrapper d-flex align-items-stretch">
+    <!-- <div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar" class="active">
 				<h1><a href="index.php" class="logo">M.</a></h1>
         <ul class="list-unstyled components mb-5">
@@ -597,7 +597,7 @@ if (isset($_GET['tanggal'])) {
             <a href="#"><span class="fa fa-paper-plane"></span> Contacts</a>
           </li>
         </ul>
-    	</nav>
+    	</nav> -->
     
  
     <!-- Main content -->
@@ -948,7 +948,7 @@ if (isset($_GET['tanggal'])) {
       </div>
     </div>
 
-    </div>
+    <!-- </div> -->
     <!-- Argon Scripts -->
     <!-- Core -->
     <script src="assets/vendor/jquery/dist/jquery.min.js"></script>

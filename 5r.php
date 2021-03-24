@@ -1,537 +1,6 @@
 <?php
 include("conf/conn.php");
 
-// revenue
-$hasil_rupiah = '';
-$hasil_rupiahsms = '';
-$hasil_rupiahvoice = '';
-
-// $revenue_ib = '';
-// $revenue_others = '';
-// $revenue_ds = '';
-
-// selected region
-// $selected_region = '';
-
-// mom
-$mom = '';
-$mom_sms = '';
-$mom_voice = '';
-// $mom_ib = '';
-// $mom_others = '';
-// $mom_ds = '';
-
-// yoy
-$yoy = '';
-$yoy_sms = '';
-$yoy_voice = '';
-// $yoy_ib = '';
-// $yoy_others = '';
-// $yoy_ds = '';
-
-// ytd
-$ytd = '';
-$ytd_sms = '';
-$ytd_voice = '';
-// $ytd_ib = '';
-// $ytd_others = '';
-// $ytd_ds = '';
-
-$duMtd = '';
-$hasil_rupiahlastmonth = '';
-
-error_reporting(0);
-
-if (isset($_GET['tanggal'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' ");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' ");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'SMS P2P' ");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'Voice P2P' ");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'SMS P2P'");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'Voice P2P'");
-
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else
- if (isset($_GET['tanggal'], $_GET['region'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-    $select_Region = $_GET['region'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2' and sheet3.region = '$selectRegion'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' and sheet3.region = '$selectRegion'");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' and sheet3.region = '$selectRegion'");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)and sheet3.region = '$selectRegion'");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'SMS P2P' and sheet3.region = '$selectRegion'");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'Voice P2P' and sheet3.region = '$selectRegion'");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)and sheet3.region = '$selectRegion'");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'SMS P2P'and sheet3.region = '$selectRegion'");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'Voice P2P'and sheet3.region = '$selectRegion'");
-
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else 
-    if (isset($_GET['tanggal'], $_GET['L1'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-    $select_l1 = $_GET['L1'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 '$l1' ");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 '$l1' ");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 '$l1' ");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 '$l1' ");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 '$l1' ");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 '$l1' ");
-
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else
-    if (isset($_GET['tanggal'], $_GET['region'], $_GET['l1'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-    $region = $_GET['region'];
-    $l1 = $_GET['l1'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2'and sheet3.region = '$selectRegion'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.region = '$selectRegion' and sheet3.l1 '$l1' ");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.region = '$selectRegion' and sheet3.l1 '$l1' ");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)and sheet3.region = '$selectRegion'");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.region = '$selectRegion' and sheet3.l1 '$l1' ");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.region = '$selectRegion'and sheet3.l1 '$l1' ");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.region = '$selectRegion'and sheet3.l1 '$l1' ");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.region = '$selectRegion'and sheet3.l1 '$l1' ");
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else {
-    $sql = mysqli_query($koneksi, "SELECT * from sheet3");
-}
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -562,11 +31,9 @@ if (isset($_GET['tanggal'])) {
         <div class="header bg-primary pb-6">
             <div class="container-fluid">
                 <div class="header-body">
-                    <div class="row align-items-center py-4">
-                        
-                            <h6 class="h2 text-white d-inline-block mb-0">Dashboard 5R</h6>
-                        
-                        <div class="dropdown col-lg-6">
+                    <div class="row py-4">
+                        <h2 class="text-white col-10">Dashboard 5R</h2>                        
+                        <div class="dropdown col-1">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Menu
                             </a>
@@ -579,130 +46,362 @@ if (isset($_GET['tanggal'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-3">
                             <div class="card">
-                                <form class="form-inline" action="" method="get">
-                                    <div class="col col-lg-2 form-group is-filled" style="padding: 8px">
-                                        <h6>Update Date</h6>
+                            <form action="" method="get">
+                                    <div class="col" style="padding: 8px">
+                                        <h2>LAST UPDATE 5R</h2>
                                         <input type="date" name="tanggal" class="form-control datepicker">
                                     </div>
-                                    <div class="col col-lg-2 form-group is-filled" style="padding: 8px">
-                                        <h6>Start Date</h6>
-                                        <input type="date" name="tanggal2" class="form-control datepicker">
-                                    </div>
-                                    <div class="col col-md-1 form-group">
-                                        <h6>Revenue Type</h6>
-                                        <select class="form-control" aria-label="select">
-                                            <option value="1">L1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-1 form-group" style="padding: 10px;">
-                                        <h6>Select Area</h6>
-                                        <select class="form-control">
-                                            <option>Area 1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-2 form-group ">
-                                        <h6>Select Region</h6>
-                                        <select class="form-control" id="region" name="select_Region">
-                                            <option>All</option>
-                                            <option value="SUMBAGUT">SUMBAGUT</option>
-                                            <option value="SUMBAGTENG">SUMBAGTENG</option>
-                                            <option value="SUMBAGSEL">SUMBAGSEL</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-1 form-group" style="">
-                                        <h6>Select L1 </h6>
-                                        <select class="form-control" id="l1" name="l1">
-                                            <option>All</option>
-                                            <option value="SMS_P2P">SMS P2P</option>
-                                            <option value="Voice_P2P">Voice P2P</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger"
-                                        style="margin-left : 40px">Tampilkan</button>
-
                                 </form>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
         <!-- Page content -->
         <div class="container-fluid mt--6">
             <div class="row">
-                <div class="col-xl-12">
+                 <!-- RS PRODUCTIVE area -->
+                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
-                                    <h3 class="mb-0">Table 5R</h3>
+                                    <h3 class="mb-0">RS PRODUCTIVE AREA</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>Regional</th>
-                                    <th>Broadband</th>
-                                    <th>Digital Services</th>
-                                    <th>SMS P2P</th>
-                                    <th>Voice P2P</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>AREA</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
-                                    <!-- revenue mtd -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- RS PRODUCTIVE region -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">RS PRODUCTIVE REGION</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
                                     </tr>
-                                    <!-- mom -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                           
-                                        </td>
-                                        <td>
-                                            
-                                        </td>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
-                                    <!-- yoy -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                           
-                                        </td>
-                                        <td>
-                                          
-                                        </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- RS PRODUCTIVE CLUSTER -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">RS PRODUCTIVE CLUSTER</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>CLUSTER</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
                                     </tr>
-                                    <!-- ytd -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            
-                                        </td>
-                                        <td>
-                                            
-                                        </td>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- RS PRODUCTIVE KABUPATEN -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">RS PRODUCTIVE KABUPATEN</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>KABUPATEN</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- RS AGREESIVITY area -->
+                 <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">RS AGREESIVITY AREA</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>AREA</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- RS AGREESIVITY region -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">RS AGREESIVITY REGION</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- RS AGREESIVITY CLUSTER -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">RS AGREESIVITY CLUSTER</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>CLUSTER</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- RS AGREESIVITY KABUPATEN -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">RS AGREESIVITY KABUPATEN</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>KABUPATEN</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </tbody>
                             </table>

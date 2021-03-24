@@ -549,7 +549,8 @@ if (isset($_GET['tanggal'])) {
     <!-- Icons -->
     <link rel="stylesheet" href="assets/vendor/nucleo/css/nucleo.css" type="text/css" />
     <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css" />
@@ -562,12 +563,11 @@ if (isset($_GET['tanggal'])) {
         <div class="header bg-primary pb-6">
             <div class="container-fluid">
                 <div class="header-body">
-                    <div class="row align-items-center py-4">
-                        
-                            <h6 class="h2 text-white d-inline-block mb-0">Dashboard 5S</h6>
-                        
-                        <div class="dropdown col-lg-6">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="row py-4">
+                        <h2 class="text-white col-10">Dashboard 5S</h2>
+                        <div class="dropdown col-1">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Menu
                             </a>
                             <ul class="dropdown-menu">
@@ -579,86 +579,231 @@ if (isset($_GET['tanggal'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-3">
                             <div class="card">
-                                <form class="form-inline" action="" method="get">
-                                    <div class="col col-lg-2 form-group is-filled" style="padding: 8px">
-                                        <h6>Update Date</h6>
+                                <form action="" method="get">
+                                    <div class="col" style="padding: 8px">
+                                        <h2>LAST UPDATE 5S</h2>
                                         <input type="date" name="tanggal" class="form-control datepicker">
                                     </div>
-                                    <div class="col col-lg-2 form-group is-filled" style="padding: 8px">
-                                        <h6>Start Date</h6>
-                                        <input type="date" name="tanggal2" class="form-control datepicker">
-                                    </div>
-                                    <div class="col col-md-1 form-group">
-                                        <h6>Revenue Type</h6>
-                                        <select class="form-control" aria-label="select">
-                                            <option value="1">L1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-1 form-group" style="padding: 10px;">
-                                        <h6>Select Area</h6>
-                                        <select class="form-control">
-                                            <option>Area 1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-2 form-group ">
-                                        <h6>Select Region</h6>
-                                        <select class="form-control" id="region" name="select_Region">
-                                            <option>All</option>
-                                            <option value="SUMBAGUT">SUMBAGUT</option>
-                                            <option value="SUMBAGTENG">SUMBAGTENG</option>
-                                            <option value="SUMBAGSEL">SUMBAGSEL</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-1 form-group" style="">
-                                        <h6>Select L1 </h6>
-                                        <select class="form-control" id="l1" name="l1">
-                                            <option>All</option>
-                                            <option value="SMS_P2P">SMS P2P</option>
-                                            <option value="Voice_P2P">Voice P2P</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger"
-                                        style="margin-left : 40px">Tampilkan</button>
-
                                 </form>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
         <!-- Page content -->
         <div class="container-fluid mt--6">
             <div class="row">
-
-
-
-                <!-- AREA -->
+                <!-- sa area -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
-                                    <h3 class="mb-0">Sellout AREA</h3>
+                                    <h3 class="mb-0">SMART AQUISTION AREA</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>AREA</th>
-                                    <th>M1 SO REV</th>
-                                    <th>MTD SO REV</th>
-                                    <th>MOM SO REV</th>
-                                    <th>M1 SO</th>
-                                    <th>MTD SO</th>
-                                    <th>MOM SO</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>AREA</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- sa region -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">SMART AQUISTION REGION</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- SA CLUSTER -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">SMART AQUISTION CLUSTER</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>CLUSTER</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- SA KABUPATEN -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">SMART AQUISTION KABUPATEN</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>KABUPATEN</th>
+                                        <th>M1 SA</th>
+                                        <th>MTD SA</th>
+                                        <th>MOM</th>
+                                        <th>M1 RS SA</th>
+                                        <th>MTD RS SA</th>
+                                        <th>MOM RS SA</th>
+                                        <th>RS PJP</th>
+                                        <th>RASIO RS SA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  sellout AREA -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">SELLOUT AREA</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>AREA</th>
+                                        <th>M1 SO REV</th>
+                                        <th>MTD SO REV</th>
+                                        <th>MOM SO REV</th>
+                                        <th>M1 SO</th>
+                                        <th>MTD SO</th>
+                                        <th>MOM SO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -667,25 +812,37 @@ if (isset($_GET['tanggal'])) {
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
-                                    <h3 class="mb-0">Sellout REGION</h3>
+                                    <h3 class="mb-0">SELLOUT REGION</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>REGION</th>
-                                    <th>M1 SO REV</th>
-                                    <th>MTD SO REV</th>
-                                    <th>MOM SO REV</th>
-                                    <th>M1 SO</th>
-                                    <th>MTD SO</th>
-                                    <th>MOM SO</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>M1 SO REV</th>
+                                        <th>MTD SO REV</th>
+                                        <th>MOM SO REV</th>
+                                        <th>M1 SO</th>
+                                        <th>MTD SO</th>
+                                        <th>MOM SO</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -694,25 +851,37 @@ if (isset($_GET['tanggal'])) {
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
-                                    <h3 class="mb-0">Sellout CLUSTER</h3>
+                                    <h3 class="mb-0">SELLOUT CLUSTER</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>CLUSTER</th>
-                                    <th>M1 SO REV</th>
-                                    <th>MTD SO REV</th>
-                                    <th>MOM SO REV</th>
-                                    <th>M1 SO</th>
-                                    <th>MTD SO</th>
-                                    <th>MOM SO</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>CLUSTER</th>
+                                        <th>M1 SO REV</th>
+                                        <th>MTD SO REV</th>
+                                        <th>MOM SO REV</th>
+                                        <th>M1 SO</th>
+                                        <th>MTD SO</th>
+                                        <th>MOM SO</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -721,25 +890,37 @@ if (isset($_GET['tanggal'])) {
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
-                                    <h3 class="mb-0">Sellout KABUPATEN</h3>
+                                    <h3 class="mb-0">SELLOUT KABUPATEN</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>KABUPATEN</th>
-                                    <th>M1 SO REV</th>
-                                    <th>MTD SO REV</th>
-                                    <th>MOM SO REV</th>
-                                    <th>M1 SO</th>
-                                    <th>MTD SO</th>
-                                    <th>MOM SO</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>KABUPATEN</th>
+                                        <th>M1 SO REV</th>
+                                        <th>MTD SO REV</th>
+                                        <th>MOM SO REV</th>
+                                        <th>M1 SO</th>
+                                        <th>MTD SO</th>
+                                        <th>MOM SO</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -749,7 +930,7 @@ if (isset($_GET['tanggal'])) {
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
                                     <h3 class="mb-0">SELLTHRU AREA</h3>
                                 </div>
@@ -758,29 +939,43 @@ if (isset($_GET['tanggal'])) {
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>AREA</th>
-                                    <th>ST MTD</th>
-                                    <th>MOM ST</th>
-                                    <th>MTD ST SA</th>
-                                    <th>MTD RS ST SA</th>
-                                    <th>MOM RS ST SA</th>
-                                    <th>MTD ST NON SA</th>
-                                    <th>MOM ST NON SA</th>
-                                    <th>MTD RS ST NON SA</th>
-                                    <th>MOM RS ST NON SA</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>AREA</th>
+                                        <th>ST MTD</th>
+                                        <th>MOM ST</th>
+                                        <th>MTD ST SA</th>
+                                        <th>MTD RS ST SA</th>
+                                        <th>MOM RS ST SA</th>
+                                        <th>MTD ST NON SA</th>
+                                        <th>MOM ST NON SA</th>
+                                        <th>MTD RS ST NON SA</th>
+                                        <th>MOM RS ST NON SA</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
                 <!-- SELLTHRU REGION -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
                                     <h3 class="mb-0">SELLTRHU REGION</h3>
                                 </div>
@@ -789,29 +984,43 @@ if (isset($_GET['tanggal'])) {
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>REGION</th>
-                                    <th>ST MTD</th>
-                                    <th>MOM ST</th>
-                                    <th>MTD ST SA</th>
-                                    <th>MTD RS ST SA</th>
-                                    <th>MOM RS ST SA</th>
-                                    <th>MTD ST NON SA</th>
-                                    <th>MOM ST NON SA</th>
-                                    <th>MTD RS ST NON SA</th>
-                                    <th>MOM RS ST NON SA</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>ST MTD</th>
+                                        <th>MOM ST</th>
+                                        <th>MTD ST SA</th>
+                                        <th>MTD RS ST SA</th>
+                                        <th>MOM RS ST SA</th>
+                                        <th>MTD ST NON SA</th>
+                                        <th>MOM ST NON SA</th>
+                                        <th>MTD RS ST NON SA</th>
+                                        <th>MOM RS ST NON SA</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
                 <!-- SELLTRHU CLUSTER -->
-                 <div class="col-xl-12">
+                <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
                                     <h3 class="mb-0">SELLTHRU CLUSTER</h3>
                                 </div>
@@ -820,29 +1029,43 @@ if (isset($_GET['tanggal'])) {
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>CLUSTER</th>
-                                    <th>ST MTD</th>
-                                    <th>MOM ST</th>
-                                    <th>MTD ST SA</th>
-                                    <th>MTD RS ST SA</th>
-                                    <th>MOM RS ST SA</th>
-                                    <th>MTD ST NON SA</th>
-                                    <th>MOM ST NON SA</th>
-                                    <th>MTD RS ST NON SA</th>
-                                    <th>MOM RS ST NON SA</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>CLUSTER</th>
+                                        <th>ST MTD</th>
+                                        <th>MOM ST</th>
+                                        <th>MTD ST SA</th>
+                                        <th>MTD RS ST SA</th>
+                                        <th>MOM RS ST SA</th>
+                                        <th>MTD ST NON SA</th>
+                                        <th>MOM ST NON SA</th>
+                                        <th>MTD RS ST NON SA</th>
+                                        <th>MOM RS ST NON SA</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
                 <!-- SELLTRHU KABUPATEN -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
                                     <h3 class="mb-0">SELLTHRU KABUPATEN</h3>
                                 </div>
@@ -851,19 +1074,34 @@ if (isset($_GET['tanggal'])) {
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>KABUPATEN</th>
-                                    <th>ST MTD</th>
-                                    <th>MOM ST</th>
-                                    <th>MTD ST SA</th>
-                                    <th>MTD RS ST SA</th>
-                                    <th>MOM RS ST SA</th>
-                                    <th>MTD ST NON SA</th>
-                                    <th>MOM ST NON SA</th>
-                                    <th>MTD RS ST NON SA</th>
-                                    <th>MOM RS ST NON SA</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>KABUPATEN</th>
+                                        <th>ST MTD</th>
+                                        <th>MOM ST</th>
+                                        <th>MTD ST SA</th>
+                                        <th>MTD RS ST SA</th>
+                                        <th>MOM RS ST SA</th>
+                                        <th>MTD ST NON SA</th>
+                                        <th>MOM ST NON SA</th>
+                                        <th>MTD RS ST NON SA</th>
+                                        <th>MOM RS ST NON SA</th>
+                                    </tr>
                                 </thead>
-                               
+                                <tbody>
+                                    <tr class="table-primary">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -878,12 +1116,13 @@ if (isset($_GET['tanggal'])) {
     <script src="assets/vendor/js-cookie/js.cookie.js"></script>
     <script src="assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
     <script src="assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-    <!-- Optional JS -->
-    <script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     <script src="assets/js/argon.js?v=1.2.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

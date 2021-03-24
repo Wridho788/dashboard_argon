@@ -4,7 +4,16 @@ include("conf/conn.php");
 // revenue
 $hasil_rupiah = '';
 $hasil_rupiahsms = '';
+
+$hasil_rupiahsms_regionsumbagut = '';
+$hasil_rupiahsms_regionsumbagteng = '';
+$hasil_rupiahsms_regionsumbagsel = '';
+
 $hasil_rupiahvoice = '';
+
+$hasil_rupiahvoice_regionsumbagut = '';
+$hasil_rupiahvoice_regionsumbagteng = '';
+$hasil_rupiahvoice_regionsumbagsel = '';
 
 // $revenue_ib = '';
 // $revenue_others = '';
@@ -50,8 +59,14 @@ if (isset($_GET['tanggal'])) {
     $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2'");
     // table l1
     $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' ");
+    $sqlsms_regionsumbagut = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' and sheet3.region = 'SUMBAGUT' ");
+    $sqlsms_regionsumbagteng = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' and sheet3.region = 'SUMBAGTENG' ");
+    $sqlsms_regionsumbagsel = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' and sheet3.region = 'SUMBAGSEL' ");
+    
     $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' ");
-
+    $sqlvoice_regionsumbagut = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' and sheet3.region = 'SUMBAGUT'");
+    $sqlvoice_regionsumbagteng = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' and sheet3.region = 'SUMBAGTENG'");
+    $sqlvoice_regionsumbagsel = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' and sheet3.region = 'SUMBAGSEL'");
     // last month, du last month
     $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)");
     $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'SMS P2P' ");
@@ -66,7 +81,13 @@ if (isset($_GET['tanggal'])) {
     // fetch
     $data = mysqli_fetch_array($sql);
     $datasms = mysqli_fetch_array($sqlsms);
+    $datasms_regionsumbagut = mysqli_fetch_array($sqlsms_regionsumbagut);
+    $datasms_regionsumbagteng = mysqli_fetch_array($sqlsms_regionsumbagteng);
+    $datasms_regionsumbagsel = mysqli_fetch_array($sqlsms_regionsumbagsel);
     $datavoice = mysqli_fetch_array($sqlvoice);
+    $datavoice_regionsumbagut = mysqli_fetch_array($sqlvoice_regionsumbagut);
+    $datavoice_regionsumbagteng = mysqli_fetch_array($sqlvoice_regionsumbagteng);
+    $datavoice_regionsumbagsel = mysqli_fetch_array($sqlvoice_regionsumbagsel);
 
     $datalastmonth = mysqli_fetch_array($sqllastmonth);
     $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
@@ -79,7 +100,13 @@ if (isset($_GET['tanggal'])) {
 
     $data['revenue_mtd'];
     $datasms['revenue_sms'];
+    $datasms_regionsumbagut['revenue_sms'];
+    $datasms_regionsumbagsel['revenue_sms'];
+    $datasms_regionsumbagteng['revenue_sms'];
     $datavoice['revenue_voice'];
+    $datavoice_regionsumbagut['revenue_voice'];
+    $datavoice_regionsumbagteng['revenue_voice'];
+    $datavoice_regionsumbagsel['revenue_voice'];
 
     $datalastmonth['revenue_lm'];
     $datasmslm['revenue_smslm'];
@@ -100,9 +127,23 @@ if (isset($_GET['tanggal'])) {
 
     $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
     $hasil_rupiahsms;
+// region
+    $hasil_rupiahsms_regionsumbagut = " " . number_format($datasms_regionsumbagut['revenue_sms'], 2, ',', '.');
+    $hasil_rupiahsms_regionsumbagut;
+    $hasil_rupiahsms_regionsumbagteng = " " . number_format($datasms_regionsumbagteng['revenue_sms'], 2, ',', '.');
+    $hasil_rupiahsms_regionsumbagteng;
+    $hasil_rupiahsms_regionsumbagsel = " " . number_format($datasms_regionsumbagsel['revenue_sms'], 2, ',', '.');
+    $hasil_rupiahsms_regionsumbagsel;
 
     $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
     $hasil_rupiahvoice;
+// region
+    $hasil_rupiahvoice_regionsumbagut = " " . number_format($datavoice_regionsumbagut['revenue_voice'], 2, ',', '.');
+    $hasil_rupiahvoice_regionsumbagut;
+    $hasil_rupiahvoice_regionsumbagteng = " " . number_format($datavoice_regionsumbagteng['revenue_voice'], 2, ',', '.');
+    $hasil_rupiahvoice_regionsumbagteng;
+    $hasil_rupiahvoice_regionsumbagsel = " " . number_format($datavoice_regionsumbagsel['revenue_voice'], 2, ',', '.');
+    $hasil_rupiahvoice_regionsumbagsel;
 
     // last month, du last month
     $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
@@ -549,7 +590,8 @@ if (isset($_GET['tanggal'])) {
     <!-- Icons -->
     <link rel="stylesheet" href="assets/vendor/nucleo/css/nucleo.css" type="text/css" />
     <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css" />
@@ -564,12 +606,11 @@ if (isset($_GET['tanggal'])) {
         <div class="header bg-primary pb-6">
             <div class="container-fluid">
                 <div class="header-body">
-                    <div class="row align-items-center py-4">
-                        
-                            <h6 class="h2 text-white d-inline-block mb-0">Dashboard</h6>
-                        
-                        <div class="dropdown col-lg-6">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="row py-4">
+                        <h2 class="text-white col-10">Dashboard</h2>
+                        <div class="dropdown col-1">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Menu
                             </a>
                             <ul class="dropdown-menu">
@@ -604,18 +645,18 @@ if (isset($_GET['tanggal'])) {
                                             <option>Area 1</option>
                                         </select>
                                     </div>
-                                    <div class="col col-md-2 form-group ">
+                                    <div class="col col-md-2 form-group">
                                         <h6>Select Region</h6>
-                                        <select class="form-control" id="region" name="select_Region">
+                                        <select class="form-control" name="region">
                                             <option>All</option>
                                             <option value="SUMBAGUT">SUMBAGUT</option>
                                             <option value="SUMBAGTENG">SUMBAGTENG</option>
                                             <option value="SUMBAGSEL">SUMBAGSEL</option>
                                         </select>
                                     </div>
-                                    <div class="col col-md-1 form-group" style="">
+                                    <div class="col col-md-1 form-group">
                                         <h6>Select L1 </h6>
-                                        <select class="form-control" id="l1" name="l1">
+                                        <select class="form-control" name="l1">
                                             <option>All</option>
                                             <option value="SMS_P2P">SMS P2P</option>
                                             <option value="Voice_P2P">Voice P2P</option>
@@ -623,7 +664,20 @@ if (isset($_GET['tanggal'])) {
                                     </div>
                                     <button type="submit" class="btn btn-danger"
                                         style="margin-left : 40px">Tampilkan</button>
-
+                                        <?php
+                                            if(isset($_GET['submit'])){
+                                                if(!empty($_GET['region'])) {
+                                                    $selected = $_GET['region'];
+                                                } else {
+                                                    echo 'Please select the value.';
+                                                }
+                                                if(!empty($_GET['l1'])) {
+                                                    $selected = $_GET['l1'];
+                                                } else {
+                                                    echo 'Please select the value.';
+                                                }
+                                            }
+                                            ?>
                                 </form>
                             </div>
                         </div>
@@ -742,108 +796,191 @@ if (isset($_GET['tanggal'])) {
         <!-- Page content -->
         <div class="container-fluid mt--6">
             <div class="row">
+                <!-- revenue area -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
-                            <div class="row align-items-center">
+                            <div class="row" style="text-align:center;">
                                 <div class="col">
-                                    <h3 class="mb-0">Table L1</h3>
+                                    <h3 class="mb-0">REVENUE REGION</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>AREA</th>
-                                    <th>Broadband</th>
-                                    <th>Digital Services</th>
-                                    <th>SMS P2P</th>
-                                    <th>Voice P2P</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>Region</th>
+                                        <th>Broadband</th>
+                                        <th>Digital Services</th>
+                                        <th>SMS P2P</th>
+                                        <th>Voice P2P</th>
+
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                    </tr>
-                                    <!-- revenue mtd -->
-                                    <tr>
-                                        <td></td>
+                                        <td>SUMBAGUT</td>
                                         <td></td>
                                         <td></td>
                                         <td>Rp.
-                                            <?php
-                            echo round($hasil_rupiahsms, 1);
+                            <?php
+                            echo round($hasil_rupiahsms_regionsumbagut, 1);
                             ?>
-                                            B</td>
+                            B</td>
                                         <td>Rp.
-                                            <?php
-                            echo round($hasil_rupiahvoice, 1);
+                            <?php
+                            echo round($hasil_rupiahvoice_regionsumbagut, 1);
                             ?>
-                                            B</td>
+                            B</td>
                                     </tr>
-                                    <!-- mom -->
+                                    <!-- sumbagteng -->
                                     <tr>
+                                    <td>SUMBAGTENG</td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td>
-                                            <?php
-                            echo round($mom_sms, 1);
+                                        <td>Rp.
+                            <?php
+                            echo round($hasil_rupiahsms_regionsumbagteng, 1);
                             ?>
-                                            %
-                                        </td>
-                                        <td>
-                                            <?php
-                            echo round($mom_voice, 1);
+                            B</td>
+                                        <td>Rp.
+                            <?php
+                            echo round($hasil_rupiahvoice_regionsumbagteng, 1);
                             ?>
-                                            %
-                                        </td>
+                            B</td>
                                     </tr>
-                                    <!-- yoy -->
+                                    <!-- sumbagsel -->
                                     <tr>
+                                    <td>SUMBAGSEL</td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td>
-                                            <?php
-                            echo round($yoy_sms, 1);
+                                        <td>Rp.
+                            <?php
+                            echo round($hasil_rupiahsms_regionsumbagsel, 1);
                             ?>
-                                            %
-                                        </td>
-                                        <td>
-                                            <?php
-                            echo round($yoy_voice, 1);
+                            B</td>
+                                        <td>Rp.
+                            <?php
+                            echo round($hasil_rupiahvoice_regionsumbagsel, 1);
                             ?>
-                                            %
-                                        </td>
-                                    </tr>
-                                    <!-- ytd -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <?php
-                            echo round($ytd_sms, 1);
-                            ?>
-                                            %
-                                        </td>
-                                        <td>
-                                            <?php
-                            echo round($ytd_voice, 1);
-                            ?>
-                                            %
-                                        </td>
+                            B</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                <!-- REVENUE VOICE -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row" style="text-align:center;">
+                                <div class="col">
+                                    <h3 class="mb-0">REVENUE REGION VOICE</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>MTD</th>
+                                        <th>MOM</th>
+                                        <th>YOY</th>
+                                        <th>YTD</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- REVENUE DATA -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">REVENUE REGION DATA</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>MTD</th>
+                                        <th>MOM</th>
+                                        <th>YOY</th>
+                                        <th>YTD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- REVENUE DIGITAL -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">REVENUE REGION DIGITAL</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table class="table align-items-center table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>REGION</th>
+                                        <th>MTD</th>
+                                        <th>MOM</th>
+                                        <th>YOY</th>
+                                        <th>YTD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -859,7 +996,9 @@ if (isset($_GET['tanggal'])) {
     <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     <script src="assets/js/argon.js?v=1.2.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

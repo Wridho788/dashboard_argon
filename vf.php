@@ -1,537 +1,6 @@
 <?php
 include("conf/conn.php");
 
-// revenue
-$hasil_rupiah = '';
-$hasil_rupiahsms = '';
-$hasil_rupiahvoice = '';
-
-// $revenue_ib = '';
-// $revenue_others = '';
-// $revenue_ds = '';
-
-// selected region
-// $selected_region = '';
-
-// mom
-$mom = '';
-$mom_sms = '';
-$mom_voice = '';
-// $mom_ib = '';
-// $mom_others = '';
-// $mom_ds = '';
-
-// yoy
-$yoy = '';
-$yoy_sms = '';
-$yoy_voice = '';
-// $yoy_ib = '';
-// $yoy_others = '';
-// $yoy_ds = '';
-
-// ytd
-$ytd = '';
-$ytd_sms = '';
-$ytd_voice = '';
-// $ytd_ib = '';
-// $ytd_others = '';
-// $ytd_ds = '';
-
-$duMtd = '';
-$hasil_rupiahlastmonth = '';
-
-error_reporting(0);
-
-if (isset($_GET['tanggal'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' ");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' ");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'SMS P2P' ");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'Voice P2P' ");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'SMS P2P'");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'Voice P2P'");
-
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else
- if (isset($_GET['tanggal'], $_GET['region'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-    $select_Region = $_GET['region'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2' and sheet3.region = '$selectRegion'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'SMS P2P' and sheet3.region = '$selectRegion'");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 = 'Voice P2P' and sheet3.region = '$selectRegion'");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)and sheet3.region = '$selectRegion'");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'SMS P2P' and sheet3.region = '$selectRegion'");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 = 'Voice P2P' and sheet3.region = '$selectRegion'");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)and sheet3.region = '$selectRegion'");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'SMS P2P'and sheet3.region = '$selectRegion'");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 = 'Voice P2P'and sheet3.region = '$selectRegion'");
-
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else 
-    if (isset($_GET['tanggal'], $_GET['L1'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-    $select_l1 = $_GET['L1'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 '$l1' ");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.l1 '$l1' ");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 '$l1' ");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.l1 '$l1' ");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 '$l1' ");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.l1 '$l1' ");
-
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else
-    if (isset($_GET['tanggal'], $_GET['region'], $_GET['l1'])) {
-    $tgl = $_GET['tanggal'];
-    $tgl2 = $_GET['tanggal2'];
-    $region = $_GET['region'];
-    $l1 = $_GET['l1'];
-
-    // revenue mtd, du mtd,ytd 2020
-    $sql = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_mtd from sheet3 where sheet3.date between '$tgl' and '$tgl2'and sheet3.region = '$selectRegion'");
-    // table l1
-    $sqlsms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_sms from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.region = '$selectRegion' and sheet3.l1 '$l1' ");
-    $sqlvoice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voice from sheet3 WHERE sheet3.date BETWEEN '$tgl' and '$tgl2' and sheet3.region = '$selectRegion' and sheet3.l1 '$l1' ");
-
-    // last month, du last month
-    $sqllastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lm from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH)and sheet3.region = '$selectRegion'");
-    $sqlsmslastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_smslm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.region = '$selectRegion' and sheet3.l1 '$l1' ");
-    $sqlvoicelastmonth = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_voicelm from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 MONTH) and DATE_SUB('$tgl2', INTERVAL 1 MONTH) and sheet3.region = '$selectRegion'and sheet3.l1 '$l1' ");
-
-    // last year, ytd 2019
-    $sqllastyear = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_ly from sheet3 where sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR)");
-    $sqllastyear_sms = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lysms from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.region = '$selectRegion'and sheet3.l1 '$l1' ");
-    $sqllastyear_voice = mysqli_query($koneksi, "SELECT SUM(revenue) as revenue_lyvoice from sheet3 WHERE sheet3.date between DATE_SUB('$tgl', INTERVAL 1 YEAR) and DATE_SUB('$tgl2', INTERVAL 1 YEAR) and sheet3.region = '$selectRegion'and sheet3.l1 '$l1' ");
-
-    // fetch
-    $data = mysqli_fetch_array($sql);
-    $datasms = mysqli_fetch_array($sqlsms);
-    $datavoice = mysqli_fetch_array($sqlvoice);
-
-    $datalastmonth = mysqli_fetch_array($sqllastmonth);
-    $datasmslm = mysqli_fetch_array($sqlsmslastmonth);
-    $datavoicelm = mysqli_fetch_array($sqlvoicelastmonth);
-
-    $datalastyear = mysqli_fetch_array($sqllastyear);
-    $dataly_sms = mysqli_fetch_array($sqllastyear_sms);
-    $dataly_voice = mysqli_fetch_array($sqllastyear_voice);
-
-
-    $data['revenue_mtd'];
-    $datasms['revenue_sms'];
-    $datavoice['revenue_voice'];
-
-    $datalastmonth['revenue_lm'];
-    $datasmslm['revenue_smslm'];
-    $datavoicelm['revenue_voicelm'];
-
-    $datalastyear['revenue_ly'];
-    $dataly_sms['revenue_lysms'];
-    $dataly_voice['revenue_lyvoice'];
-
-
-    // revenue mtd, du mtd, ytd 2020
-    $revenue = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    $revenue;
-
-    $hasil_rupiah = " " . number_format($data['revenue_mtd'], 2, ',', '.');
-    round($hasil_rupiah, 1);
-    $hasil_rupiah;
-
-    $hasil_rupiahsms = " " . number_format($datasms['revenue_sms'], 2, ',', '.');
-    $hasil_rupiahsms;
-
-    $hasil_rupiahvoice = " " . number_format($datavoice['revenue_voice'], 2, ',', '.');
-    $hasil_rupiahvoice;
-
-    // last month, du last month
-    $hasil_rupiahlastmonth = " " . number_format($datalastmonth['revenue_lm'], 2, ',', '.');
-    $hasil_rupiahlastmonth;
-
-    $hasil_rupiahlastmonthsms = " " . number_format($datasmslm['revenue_smslm'], 2, ',', '.');
-    $hasil_rupiahlastmonthsms;
-
-    $hasil_rupiahlastmonthvoice = " " . number_format($datavoicelm['revenue_voicelm'], 2, ',', '.');
-    $hasil_rupiahlastmonthvoice;
-
-    // last year, ytd 2019
-    $hasil_rupiahlastyear = " " . number_format($datalastyear['revenue_ly'], 2, ',', '.');
-    $hasil_rupiahlastyear;
-
-    $hasil_rupiahlastyear_sms = " " . number_format($dataly_sms['revenue_lysms'], 2, ',', '.');
-    $hasil_rupiahlastyear_sms;
-
-    $hasil_rupiahlastyear_voice = " " . number_format($dataly_voice['revenue_lyvoice'], 2, ',', '.');
-    $hasil_rupiahlastyear_voice;
-    // MoM
-    $mom = (($hasil_rupiah / $hasil_rupiahlastmonth - 2) * 100);
-    $mom;
-
-    $mom_sms = (($hasil_rupiahsms / $hasil_rupiahlastmonthsms - 2) * 100);
-    $mom_sms;
-
-    $mom_voice = (($hasil_rupiahvoice / $hasil_rupiahlastmonthvoice - 2) * 100);
-    $mom_voice;
-
-    // yoy
-    $yoy = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $yoy;
-
-    $yoy_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $yoy_sms;
-
-    $yoy_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $yoy_voice;
-
-    // ytd
-    $ytd = (($hasil_rupiah / $hasil_rupiahlastyear - 2) * 100);
-    $ytd;
-
-    $ytd_sms = (($hasil_rupiahsms / $hasil_rupiahlastyear_sms - 2) * 100);
-    $ytd_sms;
-
-    $ytd_voice = (($hasil_rupiahvoice / $hasil_rupiahlastyear_voice - 2) * 100);
-    $ytd_voice;
-
-
-    // du mtd
-    $tglawal = new DateTime("$tgl");
-    $tglakhir = new DateTime("$tgl2");
-    $d = $tglakhir->diff($tglawal)->days + 1;
-    $d;
-
-    $duMtd = ($hasil_rupiah / $d);
-    $duMtd;
-} else {
-    $sql = mysqli_query($koneksi, "SELECT * from sheet3");
-}
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -549,7 +18,8 @@ if (isset($_GET['tanggal'])) {
     <!-- Icons -->
     <link rel="stylesheet" href="assets/vendor/nucleo/css/nucleo.css" type="text/css" />
     <link rel="stylesheet" href="assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css" />
@@ -562,12 +32,11 @@ if (isset($_GET['tanggal'])) {
         <div class="header bg-primary pb-6">
             <div class="container-fluid">
                 <div class="header-body">
-                    <div class="row align-items-center py-4">
-                        
-                            <h6 class="h2 text-white d-inline-block mb-0">Dashboard Voucher Fisik</h6>
-                        
-                        <div class="dropdown col-lg-6">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="row py-4">
+                        <h2 class="text-white col-10">Dashboard Voucher Fisik</h2>
+                        <div class="dropdown col-1">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Menu
                             </a>
                             <ul class="dropdown-menu">
@@ -581,58 +50,44 @@ if (isset($_GET['tanggal'])) {
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <form class="form-inline" action="" method="get">
-                                    <div class="col col-lg-2 form-group is-filled" style="padding: 8px">
-                                        <h6>Update Date</h6>
-                                        <input type="date" name="tanggal" class="form-control datepicker">
+                                <form>
+                                    <div class="form-row align-items-center">
+                                        <div class="col-4" style="padding:8px;">
+                                            <h4>MONTH VF</h4>
+                                            <input type="date" name="tanggal" class="form-control datepicker">
+                                        </div>
+                                        <div class="col-3" style="padding:8px;">
+                                            <h4>date used</h4>
+                                            <input type="date" name="tanggal" class="form-control datepicker">
+                                        </div>
+                                        <div class="col-4" style="padding:8px;">
+                                            <h4>date used mtd</h4>
+                                            <input type="date" name="tanggal" class="form-control datepicker">
+                                        </div>
+                                        <div class="col-4" style="padding:8px;">
+                                            <h4>date m1</h4>
+                                            <input type="date" name="tanggal" class="form-control datepicker">
+                                        </div>
+                                        <div class="col-3" style="padding:8px;">
+                                            <h4>date used m1</h4>
+                                            <input type="date" name="tanggal" class="form-control datepicker">
+                                        </div>
+                                        <div class="col-2" style="padding: 8px;">
+                                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                        </div>
                                     </div>
-                                    <div class="col col-lg-2 form-group is-filled" style="padding: 8px">
-                                        <h6>Start Date</h6>
-                                        <input type="date" name="tanggal2" class="form-control datepicker">
-                                    </div>
-                                    <div class="col col-md-1 form-group">
-                                        <h6>Revenue Type</h6>
-                                        <select class="form-control" aria-label="select">
-                                            <option value="1">L1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-1 form-group" style="padding: 10px;">
-                                        <h6>Select Area</h6>
-                                        <select class="form-control">
-                                            <option>Area 1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-2 form-group ">
-                                        <h6>Select Region</h6>
-                                        <select class="form-control" id="region" name="select_Region">
-                                            <option>All</option>
-                                            <option value="SUMBAGUT">SUMBAGUT</option>
-                                            <option value="SUMBAGTENG">SUMBAGTENG</option>
-                                            <option value="SUMBAGSEL">SUMBAGSEL</option>
-                                        </select>
-                                    </div>
-                                    <div class="col col-md-1 form-group" style="">
-                                        <h6>Select L1 </h6>
-                                        <select class="form-control" id="l1" name="l1">
-                                            <option>All</option>
-                                            <option value="SMS_P2P">SMS P2P</option>
-                                            <option value="Voice_P2P">Voice P2P</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger"
-                                        style="margin-left : 40px">Tampilkan</button>
-
                                 </form>
                             </div>
                         </div>
                     </div>
-                  
+
                 </div>
             </div>
         </div>
         <!-- Page content -->
         <div class="container-fluid mt--6">
             <div class="row">
+                <!-- VF AREA -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
@@ -645,54 +100,40 @@ if (isset($_GET['tanggal'])) {
                         <div class="table-responsive">
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
-                                <thead class="text-blue">
-                                    <th>Regional</th>
-                                    <th>Broadband</th>
-                                    <th>Digital Services</th>
-                                    <th>SMS P2P</th>
-                                    <th>Voice P2P</th>
+                                <thead>
+                                    <tr class="bg-primary text-white">
+                                        <th>AREA</th>
+                                        <th>DIST</th>
+                                        <th>AKTIF</th>
+                                        <th>PAIRING</th>
+                                        <th>PAIRING INNER CLUSTER</th>
+                                        <th>AKTIF TO DIST</th>
+                                        <th>PAIRING TO AKTIF</th>   
+                                        <th>PAIRING INNER</th>
+                                        <th>STOCK ACTIF NO REDEEM</th>
+                                        <th>STOCK SEGEL</th>
+                                        <th>DAILY PAIRING</th>
+                                        <th>SD INJECT</th>
+                                        <th>SD SEGEL</th>
+                                        <th>REVENUE MTD</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td></td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                    </tr>
-                                    <!-- revenue mtd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahsms, 1);?> B</td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahvoice, 1); ?> B</td>
-                                    </tr>
-                                    <!-- mom -->
-                                    <tr>
-                                        <td></td>   
-                                        <td></td>
-                                        <td></td>
-                                        <td> <?php echo round($mom_sms, 1); ?> % </td>
-                                        <td> <?php echo round($mom_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- yoy -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($yoy_sms, 1); ?> % </td>
-                                        <td> <?php echo round($yoy_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- ytd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($ytd_sms, 1); ?> % </td>
-                                        <td> <?php echo round($ytd_voice, 1); ?> % </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -700,12 +141,13 @@ if (isset($_GET['tanggal'])) {
                     </div>
                 </div>
 
+                <!-- VF REGION -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="mb-0">VF REGIONAL</h3>
+                                    <h3 class="mb-0">VF REGION</h3>
                                 </div>
                             </div>
                         </div>
@@ -713,60 +155,44 @@ if (isset($_GET['tanggal'])) {
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
                                 <thead class="text-blue">
-                                    <th>Regional</th>
-                                    <th>Broadband</th>
-                                    <th>Digital Services</th>
-                                    <th>SMS P2P</th>
-                                    <th>Voice P2P</th>
+                                    <th>REGION</th>
+                                    <th>DIST</th>
+                                    <th>AKTIF</th>
+                                    <th>PAIRING</th>
+                                    <th>PAIRING INNER CLUSTER</th>
+                                    <th>AKTIF TO DIST</th>
+                                    <th>PAIRING TO AKTIF</th>   
+                                    <th>PAIRING INNER</th>
+                                    <th>STOCK ACTIF NO REDEEM</th>
+                                    <th>STOCK SEGEL</th>
+                                    <th>DAILY PAIRING</th>
+                                    <th>SD INJECT</th>
+                                    <th>SD SEGEL</th>
+                                    <th>REVENUE MTD</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td></td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                    </tr>
-                                    <!-- revenue mtd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahsms, 1);?> B</td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahvoice, 1); ?> B</td>
-                                    </tr>
-                                    <!-- mom -->
-                                    <tr>
-                                        <td></td>   
-                                        <td></td>
-                                        <td></td>
-                                        <td> <?php echo round($mom_sms, 1); ?> % </td>
-                                        <td> <?php echo round($mom_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- yoy -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($yoy_sms, 1); ?> % </td>
-                                        <td> <?php echo round($yoy_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- ytd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($ytd_sms, 1); ?> % </td>
-                                        <td> <?php echo round($ytd_voice, 1); ?> % </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
+                <!-- VF BANCH -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
@@ -780,60 +206,44 @@ if (isset($_GET['tanggal'])) {
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
                                 <thead class="text-blue">
-                                    <th>Regional</th>
-                                    <th>Broadband</th>
-                                    <th>Digital Services</th>
-                                    <th>SMS P2P</th>
-                                    <th>Voice P2P</th>
+                                    <th>BRANCH</th>
+                                    <th>DIST</th>
+                                    <th>AKTIF</th>
+                                    <th>PAIRING</th>
+                                    <th>PAIRING INNER CLUSTER</th>
+                                    <th>AKTIF TO DIST</th>
+                                    <th>PAIRING TO AKTIF</th>   
+                                    <th>PAIRING INNER</th>
+                                    <th>STOCK ACTIF NO REDEEM</th>
+                                    <th>STOCK SEGEL</th>
+                                    <th>DAILY PAIRING</th>
+                                    <th>SD INJECT</th>
+                                    <th>SD SEGEL</th>
+                                    <th>REVENUE MTD</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td></td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                    </tr>
-                                    <!-- revenue mtd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahsms, 1);?> B</td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahvoice, 1); ?> B</td>
-                                    </tr>
-                                    <!-- mom -->
-                                    <tr>
-                                        <td></td>   
-                                        <td></td>
-                                        <td></td>
-                                        <td> <?php echo round($mom_sms, 1); ?> % </td>
-                                        <td> <?php echo round($mom_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- yoy -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($yoy_sms, 1); ?> % </td>
-                                        <td> <?php echo round($yoy_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- ytd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($ytd_sms, 1); ?> % </td>
-                                        <td> <?php echo round($ytd_voice, 1); ?> % </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
+                <!-- VF CLUSTER -->
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header border-0">
@@ -847,53 +257,37 @@ if (isset($_GET['tanggal'])) {
                             <!-- Projects table -->
                             <table class="table align-items-center table-striped table-hover">
                                 <thead class="text-blue">
-                                    <th>Regional</th>
-                                    <th>Broadband</th>
-                                    <th>Digital Services</th>
-                                    <th>SMS P2P</th>
-                                    <th>Voice P2P</th>
+                                    <th>CLUSTER</th>
+                                    <th>DIST</th>
+                                    <th>AKTIF</th>
+                                    <th>PAIRING</th>
+                                    <th>PAIRING INNER CLUSTER</th>
+                                    <th>AKTIF TO DIST</th>
+                                    <th>PAIRING TO AKTIF</th>   
+                                    <th>PAIRING INNER</th>
+                                    <th>STOCK ACTIF NO REDEEM</th>
+                                    <th>STOCK SEGEL</th>
+                                    <th>DAILY PAIRING</th>
+                                    <th>SD INJECT</th>
+                                    <th>SD SEGEL</th>
+                                    <th>REVENUE MTD</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td></td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                        <td>Revenue MTD</td>
-                                    </tr>
-                                    <!-- revenue mtd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahsms, 1);?> B</td>
-                                        <td>Rp.
-                                        <?php echo round($hasil_rupiahvoice, 1); ?> B</td>
-                                    </tr>
-                                    <!-- mom -->
-                                    <tr>
-                                        <td></td>   
-                                        <td></td>
-                                        <td></td>
-                                        <td> <?php echo round($mom_sms, 1); ?> % </td>
-                                        <td> <?php echo round($mom_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- yoy -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($yoy_sms, 1); ?> % </td>
-                                        <td> <?php echo round($yoy_voice, 1); ?> % </td>
-                                    </tr>
-                                    <!-- ytd -->
-                                    <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td> <?php echo round($ytd_sms, 1); ?> % </td>
-                                        <td> <?php echo round($ytd_voice, 1); ?> % </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -915,7 +309,9 @@ if (isset($_GET['tanggal'])) {
     <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     <script src="assets/js/argon.js?v=1.2.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
